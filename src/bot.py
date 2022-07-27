@@ -17,13 +17,19 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['start', 'help'])
 async def welcome_handler(message: types.Message):
+    # Keyboard with two main buttons: Deposit and Balance
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+    keyboard.row(KeyboardButton('Deposit'))
+    keyboard.row(KeyboardButton('Balance'))
+
     # Welcome text
-    await message.answer('Hi!\nI am example bot made for this article.\n'
+    await message.answer('Hi!\nI am example bot '
+                         'made for [this article](https://telegra.ph/).\n'
                          'My goal is to show how simple it is to receive '
                          'payments in TonCoin with Python.\n\n'
-                         'Use keyboard to test my functionality.')
-
-    # Send keyboard to user
+                         'Use keyboard to test my functionality.',
+                         reply_markup=keyboard,
+                         parse_mode=ParseMode.MARKDOWN)
 
 
 @dp.message_handler(commands='balance')
