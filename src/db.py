@@ -3,7 +3,7 @@ import sqlite3
 
 
 # Initialize database connection and cursor
-con = sqlite3.connect(':memory:')
+con = sqlite3.connect('db.sqlite')
 cur = con.cursor()
 
 # Create table "Users" with uid and balance rows
@@ -34,7 +34,6 @@ def add_user(uid):
 
 def get_balance(uid):
     # Function to get user balance
-
     cur.execute(f'SELECT balance FROM Users WHERE uid = {uid}')
     balance = cur.fetchone()[0]
     return balance

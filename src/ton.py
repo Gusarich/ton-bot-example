@@ -1,9 +1,10 @@
-# Requests for API calls and time for delay between them
+# Requests for API, Asyncio to call sleep() in async func
 import requests
-import time
-
 import asyncio
-import aiogram
+
+# Aiogram
+from aiogram import Bot
+from aiogram.types import ParseMode
 
 # We also need config and database here
 import config
@@ -21,6 +22,9 @@ async def start():
         # If file not found, set last_lt to 0
         last_lt = 0
 
+    # We need the Bot instance here to send deposit notifications to users
+    bot = Bot(token=config.BOT_TOKEN)
+
     while True:
         # 2 Seconds delay between checks
         await asyncio.sleep(2)
@@ -29,8 +33,6 @@ async def start():
         resp = requests.get('https://toncenter.com/api/v2/getTransactions?'
                             f'address={config.DEPOSIT_ADDRESS}&limit=100&'
                             f'archival=true&api_key={config.API_KEY}').json()
-
-        print(last_lt, resp)
 
         # If call was not successful, try again
         if not resp['ok']:
@@ -43,6 +45,7 @@ async def start():
 
             # If this transaction's logical time is lower than our last_lt,
             # we already processed it, so skip it
+
             if lt <= last_lt:
                 continue
 
@@ -51,8 +54,24 @@ async def start():
             if value > 0:
                 # If value is greater than 0, it is probably a new deposit and
                 # we must process it by increasing someone's balance in database
-                message = tx['in_msg']['message']
-                print('DEPOSIT!', message, value)
+                uid = tx['in_msg']['message']
+
+                # If transaction comment isn't a number, skip it
+                if not uid.isdigit():
+                    continue
+
+                uid = int(uid)
+
+                # Here 'message' should be user's ID
+                # and 'value' is deposit amount
+
+                # Increase user's balance in database
+                db.add_balance(uid, value)
+
+                # Send a message to user
+                await bot.send_message(uid, 'Deposit confirmed!\n'
+                                      f'*+{value / 1e9:.2f} TON*',
+                                      parse_mode=ParseMode.MARKDOWN)
 
             # After we processed new transaction, last_lt must be updated
             last_lt = lt
