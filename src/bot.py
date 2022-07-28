@@ -87,5 +87,11 @@ async def deposit_handler(message: types.Message):
 
 
 if __name__ == '__main__':
+    # Create Aiogram executor for our bot
+    ex = executor.Executor(dp)
+
+    # Launch the deposit waiter with our executor
+    ex.loop.create_task(ton.start())
+
     # Launch the bot
-    executor.start_polling(dp, skip_updates=True)
+    ex.start_polling()
