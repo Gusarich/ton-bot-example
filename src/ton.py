@@ -30,7 +30,7 @@ async def start():
         await asyncio.sleep(2)
 
         # API call to Toncenter that returns last 100 transactions of our wallet
-        resp = requests.get('https://toncenter.com/api/v2/getTransactions?'
+        resp = requests.get(f'{config.API_BASE_URL}/api/v2/getTransactions?'
                             f'address={config.DEPOSIT_ADDRESS}&limit=100&'
                             f'archival=true&api_key={config.API_KEY}').json()
 
