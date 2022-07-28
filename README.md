@@ -11,6 +11,8 @@ You need to complete 4 simple steps to set up and run the bot
 ### 2. Install PyPi packages
     pip install -r requirements.txt
 ### 3. Configure config
-Open file `src/config.py` and enter your Bot token, Deposit address and Toncenter API key
+Open file `src/config.py` and enter your Bot token, Deposit address and Toncenter API key.
+
+You can also switch between Mainnet and Testnet there by changing `RUN_IN_MAINNET` to `True` or `False`
 ### 4. Run the bot
     python src/bot.py
