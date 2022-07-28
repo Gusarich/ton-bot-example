@@ -1,6 +1,8 @@
 # ton-bot-example
 Example of Telegram bot that can recieve payments in TON
 
+All sources are in `src/` directory
+
 # Setup
 You need to complete 4 simple steps to set up and run the bot
 ### 1. Clone repository:
