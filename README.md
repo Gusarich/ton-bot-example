@@ -8,7 +8,7 @@ All sources are in `src` directory
 
 `src/config.py` is a config file
 
-`src/db.py` is a module to iteract with sqlite3 database
+`src/db.py` is a module to interact with sqlite3 database
 
 `src/ton.py` is a module to handle payments in TON
 
