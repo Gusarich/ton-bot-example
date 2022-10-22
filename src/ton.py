@@ -61,8 +61,11 @@ async def start():
                     continue
 
                 uid = int(uid)
+                
+                if not db.check_user(uid):
+                    continue
 
-                # Here 'message' should be user's ID
+                # Here 'message' is a existing user's ID
                 # and 'value' is deposit amount
 
                 # Increase user's balance in database
