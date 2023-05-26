@@ -40,7 +40,7 @@ async def welcome_handler(message: types.Message):
     # Send welcome text and include the keyboard
     await message.answer('Hi!\nI am example bot '
                          'made for [this article](https://'
-                         'tonspace.co/develop/dapps/payment-processing'
+                         'docs.ton.org/develop/dapps/tutorials'
                          '/accept-payments-in-a-telegram-bot-2).\n'
                          'My goal is to show how simple it is to receive '
                          'payments in TonCoin with Python.\n\n'
